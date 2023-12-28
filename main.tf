@@ -35,7 +35,7 @@ resource "aws_security_group" "myvpc-sg" {
     from_port=22
     to_port=22
     protocol="tcp"
-    cidr_blocks=["0.0.0.0/0"]
+    cidr_blocks=[data.aws_vpc.existing_vpc.cidr_block]
     ipv6_cidr_blocks = ["::/0"]
 
 
@@ -73,6 +73,7 @@ resource "aws_instance" "example_instance" {
   ami           = "ami-0c7217cdde317cfec" # Replace with the desired AMI ID
   instance_type = "c6i.large"    # Adjust the instance type as needed
   subnet_id     = data.aws_subnet.existing_private_subnet.id
+  key_name      = "nextgen-devops-team"
 
 #   security_group_name = [data.aws_security_group.existing_security_group.name]
 
